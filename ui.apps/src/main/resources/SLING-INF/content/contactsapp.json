@@ -1,0 +1,9 @@
+{
+    "jcr:primaryType" : "nt:unstructured",
+    "sling:resourceType" : "sling-contact-list/contacts-index",
+    
+    "contacts" : {
+    	"jcr:primaryType" : "nt:unstructured"
+    }
+    
+}
