@@ -42,26 +42,24 @@
     		Using the Sling Taglibs to get the contacts resource
     		where the contacts are stored
     		 --%>
-            <c:set var="contactsResource" value="${sling:getRelativeResource(resource,'contacts')}" />
+    		<sling:adaptTo adaptable="${slingRequest}" adaptTo="com.xicojunior.contacts.models.ContactList" var="contactList" />
                 <ul class="list-group" id="contact-list">
-                <c:set var="contacts" value="${sling:listChildren(contactsResource)}" />
+                <c:set var="contacts" value="${contactList.contacts}" />
                 <c:forEach var="contact" items="${contacts}" >
-                	<sling:adaptTo adaptable="${contact}" adaptTo="org.apache.sling.api.resource.ValueMap" var="contactProps" />
-                	<c:set var="contactImage" value="${sling:getRelativeResource(contact,'contactImage')}" />
                 	<li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                        <c:if test="${not empty contactImage }">
-                            <img src="${contactImage.path}" alt="${contactProps['name']}" class="img-responsive img-circle">
+                        <c:if test="${not empty contact.contactImage }">
+                            <img src="${contact.contactImage}" alt="${contact.name}" class="img-responsive img-circle">
                         </c:if>
                         </div>
                         <div class="col-xs-12 col-sm-9">
-                            <span class="name">${contactProps['name']}</span><br>
-                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="" data-original-title="${contactProps['address']}"></span>
-                            <span class="visible-xs"> <span class="text-muted">${contactProps['address']}</span><br></span>
-                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="" data-original-title="${contactProps['phone']}"></span>
-                            <span class="visible-xs"> <span class="text-muted">${contactProps['phone']}</span><br></span>
-                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="" data-original-title="${contactProps['email']}"></span>
-                            <span class="visible-xs"> <span class="text-muted">${contactProps['email']}</span><br></span>
+                            <span class="name">${contact.name}</span><br>
+                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="" data-original-title="${contact.address}"></span>
+                            <span class="visible-xs"> <span class="text-muted">${contact.address}</span><br></span>
+                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="" data-original-title="${contact.phone}"></span>
+                            <span class="visible-xs"> <span class="text-muted">${contact.phone}</span><br></span>
+                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="" data-original-title="${contact.email}"></span>
+                            <span class="visible-xs"> <span class="text-muted">${contact.email}</span><br></span>
                         </div>
                         <div class="clearfix"></div>
                     </li>
