@@ -1,18 +1,45 @@
 package com.xicojunior.contacts.models;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+
 /**
  * 
  * Class that represents a Contact
  * @author francisco.ribeiro
  *
  */
+@Model(adaptables=org.apache.sling.api.resource.Resource.class)
 public class Contact {
 
+	@Inject
 	private String name;
+	
+	@Inject
 	private String email;
+	
+	@Inject
 	private String phone;
+	
+	@Inject
 	private String address;
+	
+	@ChildResource @Named("contactImage")
+	private Resource contactImageResource;
+	
 	private String contactImage;
 
+	@PostConstruct
+	public void init() {
+		this.contactImage = contactImageResource.getPath();
+	}
+	
+	
 	public String getAddress() {
 		return address;
 	}
